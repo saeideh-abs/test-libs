@@ -10,7 +10,7 @@ test("render learn react link", () => {
 test("render 3 fruits list item", () => {
   render(<App />);
   const listItems = screen.getAllByRole("listitem");
-  // expect(listItems.length).toBe(3);
+  expect(listItems.length).toBe(3);
   expect(listItems).toHaveLength(3);
   expect(listItems.length).toEqual(3);
 });
