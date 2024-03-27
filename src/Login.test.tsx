@@ -1,5 +1,15 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Login from "./Login";
+
+jest.mock("axios", () => ({
+  __esModule: true,
+
+  default: {
+    get: () => ({
+      data: { id: 1, name: "saeideh" },
+    }),
+  },
+}));
 
 test("username input should be rendered", () => {
   render(<Login />);
@@ -37,7 +47,7 @@ test("password input should change", () => {
   expect((passInputEl as HTMLInputElement).value).toBe(testValue);
 });
 
-test("submit button should not be disabled when inputs change", () => {
+test("testing when inputs change, and form submits", async () => {
   render(<Login />);
   const userInputEl = screen.getByPlaceholderText(/username/i);
   const passInputEl = screen.getByPlaceholderText(/password/i);
@@ -48,8 +58,13 @@ test("submit button should not be disabled when inputs change", () => {
   fireEvent.change(passInputEl, { target: { value: testValue } });
   expect(buttonEl).not.toBeDisabled();
 
-  // fireEvent.click(buttonEl);
-  // expect(buttonEl).toHaveTextContent(/waiting/i);
+  fireEvent.click(buttonEl);
+  expect(buttonEl).toHaveTextContent(/waiting/i);
+
+  await waitFor(() => expect(buttonEl).not.toHaveTextContent(/waiting/i));
+
+  const user = await screen.findByText(/saeideh/i);
+  expect(user).toBeInTheDocument();
 });
 
 /********  submit button **********/

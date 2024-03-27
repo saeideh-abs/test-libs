@@ -16,12 +16,13 @@ export default function Login() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [user, setUser] = useState<UserType | null>(null);
+  const [loader, setLoader] = useState<boolean>(false);
 
   const handleSubmit = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-
+    setLoader(true);
     try {
       const { data } = await axios.get(
         "https://jsonplaceholder.typicode.com/users/1"
@@ -32,11 +33,13 @@ export default function Login() {
       console.log(error);
       setError(error);
     }
+    setLoader(false);
   };
 
   return (
     <div className="container">
       <form className="flex flex-col items-center gap-4">
+        <span>{user && `Welcome ${user?.name}`}</span>
         <input
           type="text"
           placeholder="username"
@@ -57,7 +60,7 @@ export default function Login() {
           disabled={!username && !password}
           onClick={(e) => handleSubmit(e)}
         >
-          submit
+          {loader ? "waiting" : "submit"}
         </button>
 
         <span
