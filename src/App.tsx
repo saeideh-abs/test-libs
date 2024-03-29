@@ -1,5 +1,6 @@
 import "./App.css";
-import Login from "./Login";
+import Counter from "./pages/Counter";
+import Login from "./pages/Login";
 
 function App() {
   const hi: string = "learn react";
@@ -16,6 +17,8 @@ function App() {
       <span title="sum">{4 + 5}</span>
 
       <Login />
+
+      <Counter initialCount={0} />
     </>
   );
 }

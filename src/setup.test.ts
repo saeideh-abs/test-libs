@@ -24,3 +24,5 @@ describe("animals array", () => {
     expect(animals.length).toEqual(4);
   });
 });
+
+export {};

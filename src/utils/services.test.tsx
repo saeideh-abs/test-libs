@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getTodos } from "./services";
-import { sum } from ".";
+import { add, sumul } from ".";
 
 jest.mock("axios", () => ({
   __esModule: true,
@@ -27,13 +27,21 @@ it("should return correct todo", async () => {
 });
 
 it("test sum", () => {
-  const res = sum(1, 2);
+  const res = add(1)(2);
   expect(res).toBe(3);
+});
+
+// integration test
+it("test sumul", () => {
+  const res = sumul(2, 3);
+  expect(res.add).toBe(5);
+  expect(res.mul).toBe(6);
 });
 
 it("mock axios", async () => {
   console.log("axios mock test");
   jest.spyOn(axios, "get").mockReturnValueOnce({
+    // @ts-ignore
     data: { id: 1, todo: "hello dear friends" },
   });
 
