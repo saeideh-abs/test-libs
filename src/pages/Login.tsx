@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 
-const inputStyle = `border border-gray-300 border-solid rounded-md w-1/2 p-2`;
+const inputStyle = `my-input border border-gray-300 border-solid rounded-md w-1/2 p-2`;
 const buttonStyle = `rounded-md bg-blue-400 w-[200px] p-2 text-white 
   disabled:bg-gray-200 disabled:cursor-not-allowed`;
 const errStyle = `text-red-500 text-sm`;
@@ -39,7 +39,7 @@ export default function Login() {
   return (
     <div className="container">
       <form className="flex flex-col items-center gap-4">
-        <span>{user && `Welcome ${user?.name}`}</span>
+        <span data-testid="welcome-msg">{user && `Welcome ${user?.name}`}</span>
         <input
           type="text"
           placeholder="username"

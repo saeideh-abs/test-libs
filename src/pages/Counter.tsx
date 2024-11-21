@@ -25,7 +25,7 @@ function Counter({ initialCount }: { initialCount: number | string }) {
 
   return (
     <div className="flex flex-col items-center">
-      <h1>
+      <h1 data-testid="title">
         Count: <span data-testid="count">{count}</span>
       </h1>
       <div className="flex gap-2 p-4">
